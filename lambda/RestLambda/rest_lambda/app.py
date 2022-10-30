@@ -47,8 +47,8 @@ def lambda_handler(event, context):
     accessKeyId = os.environ["ACCESS_KEY_ID"]
     secretKeyId = os.environ["SECRET_KEY_ID"]
 
-    if event["httpMethod"] == "GET":
-        queryParams = event["queryStringParameters"]
+    if event["httpMethod"] == "POST":
+        queryParams = json.loads(event["body"])
         if all(k in queryParams for k in ("startTime","timeInterval", "pattern")):
             startTime = queryParams["startTime"]
             timeInterval = queryParams["timeInterval"]
