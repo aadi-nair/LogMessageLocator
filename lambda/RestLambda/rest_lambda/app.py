@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-LOCAL_FILE_PATH = 'tmp/hash.pickle' 
+LOCAL_FILE_PATH = 'hash_file/hash.pickle' 
 BUCKET_NAME  = "log.file.processor"
 
 def toMicroseconds(timestamp):
@@ -53,6 +53,7 @@ def lambda_handler(event, context):
             startTime = queryParams["startTime"]
             timeInterval = queryParams["timeInterval"]
             pattern = queryParams["pattern"]
+            logger.info('startTime: {} timeInterval: {} pattern: {}'.format(startTime,timeInterval, pattern))
 
             s3_client = boto3.client('s3', aws_access_key_id=accessKeyId, aws_secret_access_key=secretKeyId)
             response = s3_client.get_object(Bucket=BUCKET_NAME, Key=LOCAL_FILE_PATH)
@@ -81,11 +82,24 @@ def lambda_handler(event, context):
                 search_res = re.search(pattern, log)
                 if search_res:
                     matches.append(log)
+            
+            log.info("{} log messages found".format(len(matches)))
 
+            if matches:
+                return {
+                    "statusCode": 200,
+                    "body": json.dumps({'count':len(matches),'matches': matches})
+                } 
+            else:
+                return {
+                    "statusCode": 404,
+                    "message": "No logs for given time interval"
+                }
+        else:
             return {
-                "statusCode": 200,
-                "body": json.dumps({'count':len(matches),'matches': matches})
-            } 
+                "statusCode": 400,
+                "message": "please enter all three parameters"
+            }
     else:
         logger.info("Invalid route accessed")
         return {
