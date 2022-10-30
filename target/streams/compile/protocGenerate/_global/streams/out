@@ -1,0 +1,4 @@
+[0m[[0m[0mdebug[0m] [0m[0mInvalidating cache (input changed)[0m
+[0m[[0m[0minfo[0m] [0m[0mCompiling 1 protobuf files to /Users/aditya/Documents/CS441/LogMessageLocator/target/scala-2.13/src_managed/main/scalapb[0m
+[0m[[0m[0mdebug[0m] [0m[0mprotoc options:[0m
+[0m[[0m[0mdebug[0m] [0m[0mCompiling schema /Users/aditya/Documents/CS441/LogMessageLocator/src/main/protobuf/logfetcher.proto[0m

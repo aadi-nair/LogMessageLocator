@@ -85,16 +85,18 @@ def lambda_handler(event, context):
             
             log.info("{} log messages found".format(len(matches)))
 
-            if matches:
-                return {
-                    "statusCode": 200,
-                    "body": json.dumps({'count':len(matches),'matches': matches})
-                } 
-            else:
-                return {
-                    "statusCode": 404,
-                    "message": "No logs for given time interval"
-                }
+            # if matches:
+            return {
+                "statusCode": 200,
+                "body": json.dumps({'count':len(matches),'matches': matches})
+            } 
+            # else:
+            #     return {
+            #         "statusCode": 200,
+            #         "body": json.dumps({'count':len(matches),'matches': matches})
+
+            #         # "message": "No logs for given time interval"
+            #     }
         else:
             return {
                 "statusCode": 400,

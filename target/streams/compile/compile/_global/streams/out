@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/aditya/Documents/CS441/LogMessageLocator/src/main/scala/GrpcClient.scala:8:22: ':' expected but ')' found.[0m
+[0m[[0m[31merror[0m] [0m[0m  def run(LogResponse)[0m
+[0m[[0m[31merror[0m] [0m[0m                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/aditya/Documents/CS441/LogMessageLocator/src/main/scala/GrpcClient.scala:10:1: identifier expected but '}' found.[0m
+[0m[[0m[31merror[0m] [0m[0m}[0m
+[0m[[0m[31merror[0m] [0m[0m^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

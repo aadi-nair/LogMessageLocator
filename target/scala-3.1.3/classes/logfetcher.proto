@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service LogFetcher{
+  rpc FetchLogsForInterval(LogRequest) returns (LogResponse){}
+}
+
+message LogRequest{
+  string startTime = 1;
+  string timeInterval = 2;
+  string pattern = 3;
+}
+
+message LogResponse {
+  int32 count = 1;
+}
+
