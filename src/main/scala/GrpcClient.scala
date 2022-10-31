@@ -1,3 +1,4 @@
+import com.typesafe.config.{Config, ConfigFactory}
 import io.grpc.{ManagedChannel, ManagedChannelBuilder, StatusRuntimeException}
 //import scalaj.http.Http
 
@@ -9,6 +10,7 @@ import logfetcher.*
 import java.util.concurrent.TimeUnit
 
 object GrpcClient {
+  val applicationConf: Config = ConfigFactory.load("application.conf")
 
   def apply(host: String, port: Int): GrpcClient = {
     val channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build
@@ -19,11 +21,11 @@ object GrpcClient {
 
   def main(args: Array[String]): Unit = {
 
-    val client = GrpcClient("localhost", 50051)
+    val client = GrpcClient("localhost", applicationConf.getInt("logMessageLocator.port"))
     try {
-      val startTime = "18:49:27.897"
-      val timeInterval = "00:01:00"
-      val pattern = ""
+      val startTime = applicationConf.getString("logMessageLocator.startTime")
+      val timeInterval = applicationConf.getString("logMessageLocator.timeInterval")
+      val pattern = applicationConf.getString("logMessageLocator.pattern")
       client.fetchLogs(startTime, timeInterval, pattern)
     } finally {
       client.shutdown()
@@ -52,7 +54,7 @@ class GrpcClient(  private val channel: ManagedChannel,
     val request = LogRequest(startTime = startTime, timeInterval = timeInterval, pattern =  pattern)
     try {
       val response = blockingStub.fetchLogsForInterval(request)
-      logger.info("Greeting: " + response.count)
+      logger.info("LogMessageCount: " + response.count)
     }
     catch {
       case e: StatusRuntimeException =>

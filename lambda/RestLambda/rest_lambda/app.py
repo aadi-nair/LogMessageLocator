@@ -9,7 +9,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 LOCAL_FILE_PATH = 'hash_file/hash.pickle' 
-BUCKET_NAME  = "log.file.processor"
+BUCKET_NAME  = "log.file.generator"
 
 def toMicroseconds(timestamp):
     timestamp = timestamp.replace(".", ":")

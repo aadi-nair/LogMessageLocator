@@ -7,11 +7,12 @@ import java.net.http.{HttpClient, HttpRequest, HttpResponse}
 import java.time.Duration
 import scalapb.json4s.JsonFormat
 import java.net.URI
+import com.typesafe.config.{Config, ConfigFactory}
 
 
 object LogGrpcServer {
 
-
+  val applicationConf: Config = ConfigFactory.load("application.conf")
   val logger: Logger = CreateLogger(classOf[LogMessageLocator])
   def main(args: Array[String]): Unit = {
     val server: LogGrpcServer = new LogGrpcServer(ExecutionContext.global)
@@ -20,13 +21,14 @@ object LogGrpcServer {
     server.blockUntilShutdown()
   }
 
-  private val port = 50051
+  private val port = applicationConf.getInt("logMessageLocator.port")
 }
 
 
 class LogGrpcServer(executionContext: ExecutionContext) { self =>
   private[this] var server: Server = null
   val httpClient = HttpClient.newBuilder.version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofSeconds(10)).build
+  val applicationConf: Config = ConfigFactory.load("application.conf")
 
 
   private def start(): Unit = {
@@ -57,9 +59,9 @@ class LogGrpcServer(executionContext: ExecutionContext) { self =>
       val req_json: String = JsonFormat.toJsonString(req)
       val request:HttpRequest = HttpRequest.newBuilder()
         .POST(HttpRequest.BodyPublishers.ofString(req_json))
-        .uri(URI.create("http://127.0.0.1:3000/fetchLogMessage"))
-        .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
-        .header("Content-Type", "application/json")
+        .uri(URI.create(applicationConf.getString("logMessageLocator.uri")))
+        .setHeader("User-Agent", applicationConf.getString("logMessageLocator.userAgent")) // add request header
+        .header("Content-Type", applicationConf.getString("logMessageLocator.contentType"))
         .build();
       val response = httpClient.send(request, HttpResponse.BodyHandlers.ofString)
 
