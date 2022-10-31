@@ -1,16 +1,16 @@
-syntax = "proto3";
+syntax = "proto2";
 
 service LogFetcher{
   rpc FetchLogsForInterval(LogRequest) returns (LogResponse){}
 }
 
 message LogRequest{
-  string startTime = 1;
-  string timeInterval = 2;
-  string pattern = 3;
+  required string startTime = 1;
+  required string timeInterval = 2;
+  required string pattern = 3;
 }
 
 message LogResponse {
-  int32 count = 1;
+  required bool count = 1;
 }
 

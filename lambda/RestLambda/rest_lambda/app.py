@@ -4,6 +4,7 @@ import pickle
 import boto3
 import math
 import logging
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
@@ -47,7 +48,10 @@ def lambda_handler(event, context):
     accessKeyId = os.environ["ACCESS_KEY_ID"]
     secretKeyId = os.environ["SECRET_KEY_ID"]
 
+
+
     if event["httpMethod"] == "POST":
+        logger.info("body: {}".format(event["body"]))
         queryParams = json.loads(event["body"])
         if all(k in queryParams for k in ("startTime","timeInterval", "pattern")):
             startTime = queryParams["startTime"]
@@ -55,9 +59,22 @@ def lambda_handler(event, context):
             pattern = queryParams["pattern"]
             logger.info('startTime: {} timeInterval: {} pattern: {}'.format(startTime,timeInterval, pattern))
 
-            s3_client = boto3.client('s3', aws_access_key_id=accessKeyId, aws_secret_access_key=secretKeyId)
-            response = s3_client.get_object(Bucket=BUCKET_NAME, Key=LOCAL_FILE_PATH)
-            hash_data = pickle.loads(response['Body'].read())
+            try:
+                s3_client = boto3.client('s3', aws_access_key_id=accessKeyId, aws_secret_access_key=secretKeyId)
+                logger.info("s3 cleint instantiated")
+
+                response = s3_client.get_object(Bucket=BUCKET_NAME, Key=LOCAL_FILE_PATH)
+                logger.info("s3 object fetched")
+
+                hash_data = pickle.loads(response['Body'].read())
+                logger.info("pickle data loaded")
+            except Exception as inst:
+                logger.warn(inst)
+                return {
+                    "statusCode": 500,
+                    "message": "error fetching object",
+                    "body": json.dumps({'count':0})
+                }
           
             startTimeInMicro = toMicroseconds(startTime)
             endTimeInMicro = startTimeInMicro + toMicroseconds(timeInterval)
@@ -68,13 +85,16 @@ def lambda_handler(event, context):
                     "statusCode": 404,
                     "message": "No logs for given time interval"
                 }
+
+            logger.info('startTimeInMicro: {} endTimeInMicro: {}'.format(startTimeInMicro,endTimeInMicro))
+            
             startIndex = bin_search(logTimestampsInMicro,startTimeInMicro)
             startIndex = startIndex if startIndex!=-1 else 0
 
             endIndex = bin_search(logTimestampsInMicro,endTimeInMicro)
             endIndex = endIndex if endIndex!=-1 else len(logTimestampsInMicro)
 
-            logger.info("{} Log Messages found".format((endIndex-startIndex)))
+            logger.info("{} Log Messages found in time interval".format((endIndex-startIndex)))
    
             matches = []
             for i in range(startIndex, endIndex):
@@ -83,12 +103,12 @@ def lambda_handler(event, context):
                 if search_res:
                     matches.append(log)
             
-            log.info("{} log messages found".format(len(matches)))
+            logger.info("{} log messages found".format(len(matches)))
 
             # if matches:
             return {
                 "statusCode": 200,
-                "body": json.dumps({'count':len(matches),'matches': matches})
+                "body": json.dumps({'count':len(matches)>0})
             } 
             # else:
             #     return {

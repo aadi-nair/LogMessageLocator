@@ -1,8 +1,8 @@
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-//ThisBuild / scalaVersion := "3.1.3"
+ThisBuild / scalaVersion := "3.1.3"
 
-scalaVersion := "2.13.4"
+//scalaVersion := "2.13.4"
 
 lazy val root = (project in file("."))
   .settings(
@@ -30,5 +30,8 @@ libraryDependencies += "org.scalatestplus" %% "mockito-4-6" % "3.2.14.0" % "test
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
 
-libraryDependencies +=  "org.scalaj" %% "scalaj-http" % "2.4.2"
+//libraryDependencies +=  "org.scalaj" %% "scalaj-http" % "2.4.2"
+libraryDependencies += "com.thesamet.scalapb" %% "scalapb-json4s" % "0.12.0"
+
+
 

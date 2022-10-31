@@ -1,0 +1,8 @@
+[debug] > Exec(compile, None, None)
+[debug] Evaluating tasks: Compile / compile
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] Compiling 1 protobuf files to C:\Users\anair38\Documents\CS441\LogMessageLocator\target\scala-2.13\src_managed\main\scalapb
+[info] compiling 7 Scala sources to C:\Users\anair38\Documents\CS441\LogMessageLocator\target\scala-2.13\classes ...
+[info] done compiling
+[success] Total time: 9 s, completed Oct 30, 2022, 3:20:06 PM
+[debug] > Exec(idea-shell, None, None)
