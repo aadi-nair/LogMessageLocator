@@ -1,12 +1,8 @@
 import com.typesafe.config.{Config, ConfigFactory}
 import io.grpc.{ManagedChannel, ManagedChannelBuilder, StatusRuntimeException}
-//import scalaj.http.Http
-
-
 import org.slf4j.Logger
 import utils.CreateLogger
 import logfetcher.*
-
 import java.util.concurrent.TimeUnit
 
 object GrpcClient {
@@ -18,7 +14,7 @@ object GrpcClient {
     new GrpcClient(channel, blockingStub)
   }
   
-
+  // driver function for client
   def main(args: Array[String]): Unit = {
 
     val client = GrpcClient("localhost", applicationConf.getInt("logMessageLocator.port"))
@@ -41,14 +37,13 @@ object GrpcClient {
 class GrpcClient(  private val channel: ManagedChannel,
                    private val blockingStub: LogFetcherGrpc.LogFetcherBlockingStub){
 
-
-
-  val logger: Logger = CreateLogger(classOf[LogMessageLocator])
+  val logger: Logger = CreateLogger(classOf[GrpcClient])
 
   def shutdown(): Unit = {
     channel.shutdown.awaitTermination(5, TimeUnit.SECONDS)
   }
 
+  //method that invoked remote procedure
   def fetchLogs(startTime: String, timeInterval: String, pattern: String): Unit = {
     logger.info("Fetching logs from" + startTime + " ...")
     val request = LogRequest(startTime = startTime, timeInterval = timeInterval, pattern =  pattern)

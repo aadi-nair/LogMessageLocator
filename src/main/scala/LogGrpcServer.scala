@@ -13,7 +13,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 object LogGrpcServer {
 
   val applicationConf: Config = ConfigFactory.load("application.conf")
-  val logger: Logger = CreateLogger(classOf[LogMessageLocator])
+  val logger: Logger = CreateLogger(classOf[LogGrpcServer])
   def main(args: Array[String]): Unit = {
     val server: LogGrpcServer = new LogGrpcServer(ExecutionContext.global)
 
@@ -27,7 +27,7 @@ object LogGrpcServer {
 
 class LogGrpcServer(executionContext: ExecutionContext) { self =>
   private[this] var server: Server = null
-  val httpClient = HttpClient.newBuilder.version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofSeconds(10)).build
+  val httpClient: HttpClient = HttpClient.newBuilder.version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofSeconds(10)).build
   val applicationConf: Config = ConfigFactory.load("application.conf")
 
 
@@ -55,7 +55,7 @@ class LogGrpcServer(executionContext: ExecutionContext) { self =>
 
   private class LogFetcherImpl extends LogFetcherGrpc.LogFetcher {
 
-    override def fetchLogsForInterval(req: LogRequest) = {
+    override def fetchLogsForInterval(req: LogRequest): Future[LogResponse] = {
       val req_json: String = JsonFormat.toJsonString(req)
       val request:HttpRequest = HttpRequest.newBuilder()
         .POST(HttpRequest.BodyPublishers.ofString(req_json))

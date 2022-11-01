@@ -11,6 +11,6 @@ message LogRequest{
 }
 
 message LogResponse {
-  required bool count = 1;
+  required int32 count = 1;
 }
 

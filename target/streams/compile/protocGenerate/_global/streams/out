@@ -1,4 +1,4 @@
-[debug] Invalidating cache (input changed)
-[info] Compiling 1 protobuf files to C:\Users\anair38\Documents\CS441\LogMessageLocator\target\scala-3.1.3\src_managed\main\scalapb
-[debug] protoc options:
-[debug] Compiling schema C:\Users\anair38\Documents\CS441\LogMessageLocator\src\main\protobuf\logfetcher.proto
+[0m[[0m[0mdebug[0m] [0m[0mInvalidating cache (input changed)[0m
+[0m[[0m[0minfo[0m] [0m[0mCompiling 1 protobuf files to /Users/aditya/Documents/CS441/LogMessageLocator/target/scala-3.1.3/src_managed/main/scalapb[0m
+[0m[[0m[0mdebug[0m] [0m[0mprotoc options:[0m
+[0m[[0m[0mdebug[0m] [0m[0mCompiling schema /Users/aditya/Documents/CS441/LogMessageLocator/src/main/protobuf/logfetcher.proto[0m
