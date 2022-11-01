@@ -9,9 +9,10 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-
+# converts string timestamps to microseconds
 def toMicroseconds(timestamp):
-    timestamp = timestamp.replace(".", ":")
+    # input could be hh:MM:ss.SSS or hh:MM:ss
+    timestamp = timestamp.replace(".", ":") 
     indice = 2
     inMicro = 0
     for i,part in enumerate(timestamp.split(":")[:-1]):
@@ -23,6 +24,7 @@ def toMicroseconds(timestamp):
 def lambda_handler(event, context):
 
     logger.info('hashing lambda event {}'.format(event))
+    # accessing keys required to reach AWS S3
     accessKeyId= os.environ["ACCESS_KEY_ID"]
     secretKeyId = os.environ["SECRET_KEY_ID"]
 

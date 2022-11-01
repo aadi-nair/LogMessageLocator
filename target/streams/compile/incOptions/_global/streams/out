@@ -17,7 +17,6 @@
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcher$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcher.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	LogMessageLocator.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcherBlockingStub$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	CreateLogger$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogResponse$.class[0m
@@ -25,7 +24,6 @@
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogResponse.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogRequest.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	LogMessageLocator$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	GrpcClient.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcherStub.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogfetcherProto$.class[0m
@@ -44,7 +42,6 @@
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcher$.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcher.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	LogMessageLocator.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcherBlockingStub$.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	CreateLogger$.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogResponse$.tasty[0m
@@ -52,7 +49,6 @@
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogResponse.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogRequest.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	LogMessageLocator$.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	GrpcClient.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogFetcherGrpc$LogFetcherStub.tasty[0m
 [0m[[0m[0mdebug[0m] [0m[0m	LogfetcherProto$.tasty[0m

@@ -1,16 +1,38 @@
+import com.typesafe.config.{Config, ConfigFactory}
 import io.grpc.ManagedChannel
-import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatestplus.mockito.MockitoSugar
 import logfetcher.*
+import org.scalatest.matchers.should.Matchers
 
 
 
-class gRPCTest extends AnyFunSpec with MockitoSugar:
-  describe("LogMessageCharCount.Map produces intermediate keys <timestamp, charCount>") {
-    val blocking_stub = mock[LogFetcherGrpc.LogFetcherBlockingStub]
-    val channel_stub = mock[ManagedChannel]
-    val client = new GrpcClient(channel_stub, blocking_stub)
+class gRPCTest extends AnyFlatSpec with Matchers:
 
-    client.fetchLogs("18:21:33.657", "00:01:00", "")
+  val applicationConf: Config = ConfigFactory.load("application.conf")
+  it should "Contain uri to API Gateway" in {
+    assert(applicationConf.hasPath("logMessageLocator.uri"))
+  }
 
+  it should "Contain port to rpc server" in {
+    assert(applicationConf.hasPath("logMessageLocator.port"))
+  }
+
+  it should "Contain user-agent info" in {
+    assert(applicationConf.hasPath("logMessageLocator.userAgent"))
+  }
+
+  it should "Contain API content-type" in {
+    assert(applicationConf.hasPath("logMessageLocator.contentType"))
+  }
+
+  it should "Contain startTime argument" in {
+    assert(applicationConf.hasPath("logMessageLocator.startTime"))
+  }
+
+  it should "Contain timeInterval argument" in {
+    assert(applicationConf.hasPath("logMessageLocator.timeInterval"))
+  }
+  it should "Contain pattern argument" in {
+    assert(applicationConf.hasPath("logMessageLocator.pattern"))
   }
