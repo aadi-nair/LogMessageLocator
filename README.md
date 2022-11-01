@@ -6,6 +6,14 @@ This project uses gRPC and REST API to query log files in an AWS S3 Bucket.
 ## Functionality
 This project consists of a gRPC client, server and 2 AWS Lambdas.
 
+### Project Structure
+
+- ```lambda/```: contains all the lambda function implemented in ```python 3.9```
+- ```src/main/scala```: contains scala implementations of the rpc client and server
+- ```src/main/protobuf```: contains protobuf code written using ```scalapb```
+- ```src/main/resources```: contains ```application.conf``` (used to store constants and arguments to the rpc client and ```logback.xml``` used for ```slf4j``` logging
+- ```src/test```: is where our test files are 
+
 ### Components
 1. **HashingLambda.py**: Uses python to implement a Lambda that is triggered when
    a new log file is added to the ```S3 bucket```(log.file.generator)
@@ -50,23 +58,23 @@ This project consists of a gRPC client, server and 2 AWS Lambdas.
 ## How to Run this project
    1. Clone this repository
       ```console
-      git clone https://github.com/aadi-nair/LogMessageLocator
-      cd LogMessageLocator
+      foo@bar:~$ git clone https://github.com/aadi-nair/LogMessageLocator
+      foo@bar:~$ cd LogMessageLocator
       ```
    2. Clean and compile the project to generate scala classes from protobuf```src/main/protobuf/logfetcher.proto```:
       ```console
-      sbt clean compile
+      foo@bar:~$ sbt clean compile
       ```   
       scala files are generated under ```target/scala-3.1.3/src_managed/main/scalapb/logfetcher/```
 
-   3. Deploy the AWS Lambda code as instructed in the Youtube Video.
+   3. Deploy the AWS Lambda code as instructed in the [Youtube Video](https://youtu.be/9d9NW6DLO2g).
    4. Edit program arguments under ```/src/main/resources/application.conf```
    5. Run the scala project:
          ```console
-         sbt run
+         foo@bar:~$ sbt run
          ```
          You'll be prompted to choose between two scala files:
-         ```console
+         ```
          [info] loading settings for project root from build.sbt ...
          [info] set current project to LogMessageLocator (in build file:/Users/aditya/Documents/CS441/LogMessageLocator/)
          [info] compiling 7 Scala sources to /Users/aditya/Documents/CS441/LogMessageLocator/target/scala-3.1.3/classes ...
@@ -99,6 +107,14 @@ This project consists of a gRPC client, server and 2 AWS Lambdas.
         ```
         Mark Directory as > Unmark as Sources Root
        ```
+      <img width="271" alt="Screenshot 2022-11-01 at 6 03 59 PM" src="https://user-images.githubusercontent.com/115327255/199359209-50ed9403-7e27-4dc7-aa53-9d99442beb67.png">
+        
+      Menu:
+
+      <img width="552" alt="Screenshot 2022-11-01 at 6 03 37 PM" src="https://user-images.githubusercontent.com/115327255/199359164-ad24176b-24bf-4089-a7af-6bb475cffe2c.png">
+    
+      Output:
+      <img width="273" alt="Screenshot 2022-11-01 at 6 04 15 PM" src="https://user-images.githubusercontent.com/115327255/199359331-4e058c98-61c3-4241-81f4-1e912763a997.png">
 
     
 
